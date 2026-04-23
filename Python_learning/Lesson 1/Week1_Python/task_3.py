@@ -1,6 +1,6 @@
 import csv
 
-input_file = "customers_raw.csv"
+input_file = "D:\\My_Python\\VISTA-ASG\\Python_learning\\Lesson 1\\Week1_Python\\customers_raw.csv"
 log_file = "bad_records.log"
 
 

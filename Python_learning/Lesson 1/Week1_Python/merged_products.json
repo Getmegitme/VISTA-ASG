@@ -1,0 +1,44 @@
+[
+    {
+        "product_id": 1001,
+        "product_name": "Wireless Mouse",
+        "price": 799.0,
+        "category": "Electronics"
+    },
+    {
+        "product_id": 1002,
+        "product_name": "Office Chair",
+        "price": 4999.0,
+        "category": "Furniture"
+    },
+    {
+        "product_id": 1003,
+        "product_name": "Laptop Stand",
+        "price": 0.0,
+        "category": "Electronics"
+    },
+    {
+        "product_id": 1004,
+        "product_name": "Desk Lamp",
+        "category": "Home",
+        "price": 1299.0
+    },
+    {
+        "product_id": 1005,
+        "product_name": "Water Bottle",
+        "category": "Home",
+        "price": 299.0
+    },
+    {
+        "product_id": 1006,
+        "product_name": "Notebook",
+        "category": "Stationery",
+        "price": 49.0
+    },
+    {
+        "product_id": 1007,
+        "product_name": "Pen",
+        "category": "Stationery",
+        "price": 20.0
+    }
+]
