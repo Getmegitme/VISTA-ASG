@@ -1,7 +1,7 @@
 import csv
 
 # File name
-input_file = "products_missing_stock.csv"
+input_file = "D:\\My_Python\\VISTA-ASG\\Python_learning\\task2_data.csv"
 
 # Step 1: Expected columns
 expected_columns = ["product_id", "product_name", "category", "price", "stock"]
