@@ -1,5 +1,8 @@
 --Deduplication
--- Here, the customer Ravi appears twice. We keep the latest record based on updated_at
+--If I have multiple records for the same thing, I keep only one of it. 
+-- Here, in the table - the customer Ravi appears twice. We keep the latest record based on updated_at
+
+
 
 WITH ranked_customers AS (
     SELECT 
@@ -22,3 +25,5 @@ SELECT
     updated_at
 FROM ranked_customers
 WHERE rn = 1;
+
+--

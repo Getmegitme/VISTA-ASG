@@ -1,4 +1,4 @@
---
+--Here, we are ranking the orders with customer by highest amount and only keep rank 1. 
 
 WITH ranked_orders AS (
     SELECT 

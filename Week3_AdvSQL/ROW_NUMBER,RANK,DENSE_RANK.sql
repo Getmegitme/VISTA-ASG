@@ -1,4 +1,5 @@
---
+--Explain the difference between ROW_NUMBER, RANK, and DENSE_RANK in one example.
+--This Ranks orders based on amount from highest to lowest ROW_NUMBER
 
 SELECT 
     order_id,

@@ -16,3 +16,6 @@ SELECT customer_id, amount, order_date
 FROM orders
 WHERE order_date >= '2024-02-01'
   AND status = 'completed';
+  
+
+-- 
