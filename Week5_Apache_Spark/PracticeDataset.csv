@@ -1,0 +1,13 @@
+--Given practice Dataset
+
+events (clickstream data) event_id | user_id | event_type  | device   | country | event_date  | session_time_sec 1001     | U01     | page_view   | mobile   | India   | 2024-01-01  | 45 1002     | U02     | click       | desktop  | USA     | 2024-01-01  | 120 1003     | U01     | purchase    | mobile   | India   | 2024-01-02  | 300 1004     | U03     | page_view   | tablet   | UK      | 2024-01-02  | 60 1005     | U02     | click       | desktop  | USA     | 2024-01-03  | 90 1006     | NULL    | page_view   | mobile   | India   | 2024-01-03  | 30  users user_id | user_name | segment   | created_date U01     | Ravi      | premium   | 2023-06-01 U02     | Asha      | standard  | 2023-08-15 U03     | Imran     | premium   | 2023-09-20
+
+
+
+
+-- This is the users data
+
+user_id,user_name,segment,created_date
+U01,Ravi,premium,2023-06-01
+U02,Asha,standard,2023-08-15
+U03,Imran,premium,2023-09-20

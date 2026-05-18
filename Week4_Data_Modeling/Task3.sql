@@ -19,6 +19,11 @@ INSERT INTO relationship_orders VALUES
 (101, 1, 500),
 (102, 1, 300);
 
+SELECT *
+FROM relationship_customers c
+JOIN relationship_orders o
+ON c.customer_id = o.customer_id;
+
 -----------------------------------------------------------------------------------------------------
 --Practice tasks
 -- Identify relationship type for Customer and Order.
