@@ -1,0 +1,104 @@
+##6. Connecting the services — end-to-end AWS data pipeline
+
+##•	Explain the role of each IAM policy in the pipeline — what would break if each was removed.
+## The following are the IAM Policies. 
+##Lambda IAM Policy
+##Glue IAM Policy
+##Redshift IAM Policy
+##SNS IAM Policy
+
+
+--1. Lambda IAM Policy
+
+--Here, Lambda needs permission to - read S3 file metadata, start Glue job, publish SNS alert and write CloudWatch logs
+
+--These are the required permissions to go ahead.
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:ListBucket",
+    "glue:StartJobRun",
+    "sns:Publish",
+    "logs:CreateLogGroup",
+    "logs:CreateLogStream",
+    "logs:PutLogEvents"
+  ],
+  "Resource": "*"
+}
+
+-- If these are removed, the following will break.
+
+-- Lambda can't read file metadata, can't trigger Glue.
+-- Lambda can't send SNS alerts and Lambda logs may not appear in CloudWatch.
+
+
+--2. Glue IAM Policy
+
+--Glue needs permission to - read the raw claims files, write cleaned Parquet files
+--Access Glue Data Catalog and write logs to CloudWatch
+
+--These are the required permissions to go ahead.
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:ListBucket",
+    "s3:PutObject",
+    "glue:GetDatabase",
+    "glue:GetTable",
+    "glue:UpdateTable",
+    "logs:CreateLogGroup",
+    "logs:CreateLogStream",
+    "logs:PutLogEvents"
+  ],
+  "Resource": "*"
+}
+-- If these are removed, the following will break.
+
+-- Glue can't read raw files, can't write cleaned files.
+-- Glue can't access Data Catalog metadata and Glue job logs may not appear.
+
+--3. Redshift IAM Policy
+
+--This needs permission to Read the cleaned files from S3 nad load data using COPY
+
+--These are the required permissions to go ahead.
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:ListBucket"
+  ],
+  "Resource": [
+    "arn:aws:s3:::healthcare-datalake",
+    "arn:aws:s3:::healthcare-datalake/cleaned/*"
+  ]
+}
+-- If these are removed, COPY command will fail, Redshift can't load any cleaned files.
+-- stg_claims will remain empty and Analysts will see missing data.
+
+--4. SNS IAM Policy
+
+--SNS allows pipeline alerts to reach the data team.
+
+-- Required permission
+{
+  "Effect": "Allow",
+  "Action": [
+    "sns:Publish"
+  ],
+  "Resource": "arn:aws:sns:us-east-1:123456789:data-alerts"
+}
+
+-- If removed, validation failures will occur silently, no email alert is sent.
+-- Data team may not know the pipeline failed.
+
+
+--Conclusion:
+
+--Lambda uses IAM to validate files and trigger Glue.
+--Glue uses IAM to read raw and write cleaned data.
+--Redshift uses IAM to read cleaned data.
+--SNS uses IAM to send alerts.
+--CloudWatch uses IAM to store logs.

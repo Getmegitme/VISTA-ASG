@@ -1,0 +1,77 @@
+##5. IAM — identity, access management, and security for data engineers
+
+##•	Create an IAM role for Glue with S3 read access to raw/ and S3 write access to cleaned/.
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::healthcare-datalake",
+        "arn:aws:s3:::healthcare-datalake/raw/*"
+      ]
+    },
+
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::healthcare-datalake/cleaned/*"
+      ]
+    }
+  ]
+}
+
+-- Glue needs to read the raw claims files. It transforms the data.
+-- Glue writes cleaned Parquet files.
+-- Glue does not need permission to delete source files.
+
+##•	Create an IAM role for Redshift with S3 read access to cleaned/ only.
+
+--IAM policy for Redshift
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::healthcare-datalake",
+        "arn:aws:s3:::healthcare-datalake/cleaned/*"
+      ]
+    }
+
+  ]
+}
+
+-- Redshift only loads cleaned data.
+-- Raw files may contain: Bad records, incomplete files and sensitive information
+-- Redshift should access only validated and transformed data.
+
+##•	Explain in plain English why Redshift should not have s3:DeleteObject permission.
+
+-- Redshift should not have s3:DeleteObject permission because its responsibility is to read and load data, not managing storage. 
+-- Granting delete access will increase the security risk and violates the principle of least privilege. 
+-- If compromised, Redshift could accidentally or maliciously remove critical healthcare data.
+
+##•	Explain what 'assume role' means in the context of a Glue job reading from S3.
+
+-- Assume role means an AWS service temporarily takes on the permissions defined in an IAM role. 
+-- In a Glue job, Glue assumes a role that grants S3 access, receives temporary credentials from AWS 
+-- It performs the required operations, and then the credentials automatically expire when no longer needed.
+
+
+
